@@ -52,6 +52,8 @@ body {
   display: block;
   cursor: pointer;
   width: 100px;
+  height: 40px;
+  border-radius: 5px;
   color: var(--dark-grey);
   background-color: var(--gold);
   background-image: linear-gradient(var(--golden-yellow), var(--orange));
