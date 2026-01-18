@@ -63,6 +63,8 @@ body {
 
 .btn:hover {
   background-image: linear-gradient(var(--yellow), var(--dark-orange));
+  color: red;
+  font-size: large;
 }
 
 #cart-btn {
