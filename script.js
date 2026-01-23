@@ -8,80 +8,81 @@ const cartSubTotal = document.getElementById("subtotal");
 const cartTaxes = document.getElementById("taxes");
 const cartTotal = document.getElementById("total");
 const showHideCartSpan = document.getElementById("show-hide-cart");
+const hideCart = document.getElementById("hide-cart-btn")
 let isCartShowing = false;
 
 const products = [
   {
     id: 1,
-    name: "Vanilla Cupcakes (6 Pack)",
-    price: 12.99,
-    category: "Cupcake",
+    name: "Tamis Signature",
+    price: 9.45,
+    category: "Single Pizza",
   },
   {
     id: 2,
-    name: "French Macaron",
-    price: 3.99,
-    category: "Macaron",
+    name: "Pepperoni",
+    price: 9.99,
+    category: "Single Pizza",
   },
   {
     id: 3,
-    name: "Pumpkin Cupcake",
-    price: 3.99,
-    category: "Cupcake",
+    name: "Margarita",
+    price: 9.69,
+    category: "Single Pizza",
   },
   {
     id: 4,
-    name: "Chocolate Cupcake",
-    price: 5.99,
-    category: "Cupcake",
+    name: "Kima",
+    price: 8.99,
+    category: "Single Pizza",
   },
   {
     id: 5,
-    name: "Chocolate Pretzels (4 Pack)",
+    name: "Zatar Labna",
     price: 10.99,
-    category: "Pretzel",
+    category: "Single Pizza",
   },
   {
     id: 6,
-    name: "Strawberry Ice Cream",
+    name: "Chicken Round",
     price: 2.99,
-    category: "Ice Cream",
+    category: "Single Pizza",
   },
   {
     id: 7,
-    name: "Chocolate Macarons (4 Pack)",
+    name: "Musakhan",
     price: 9.99,
-    category: "Macaron",
+    category: "Single Pizza",
   },
   {
     id: 8,
-    name: "Strawberry Pretzel",
+    name: "Triple Cheese",
     price: 4.99,
-    category: "Pretzel",
+    category: "Single Pizza",
   },
   {
     id: 9,
-    name: "Butter Pecan Ice Cream",
-    price: 2.99,
+    name: "Kinza Cola",
+    price: 3.99,
     category: "Ice Cream",
   },
   {
     id: 10,
-    name: "Rocky Road Ice Cream",
-    price: 2.99,
+    name: "Rocky Road",
+    price: 18.99,
     category: "Ice Cream",
   },
   {
     id: 11,
-    name: "Vanilla Macarons (5 Pack)",
-    price: 11.99,
-    category: "Macaron",
+    name: "Penne Pasta",
+    price: 35.99,
+    category: "Pasta",
   },
   {
     id: 12,
-    name: "Lemon Cupcakes (4 Pack)",
-    price: 12.99,
-    category: "Cupcake",
+    name: "Flask (Karak)",
+    price: 25.99,
+    category: "Drink",
   },
 ];
 
@@ -90,7 +91,7 @@ products.forEach(
     dessertCards.innerHTML += `
       <div class="dessert-card">
         <h2>${name}</h2>
-        <p class="dessert-price">$${price}</p>
+        <p class="dessert-price">QR ${price}</p>
         <p class="product-category">Category: ${category}</p>
         <button 
           id="${id}" 
@@ -122,14 +123,15 @@ class ShoppingCart {
     const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`);
 
     currentProductCount > 1 
-      ? currentProductCountSpan.textContent = `${currentProductCount}x`
+      ? currentProductCountSpan.textContent = `[${currentProductCount}]x`
       : productsContainer.innerHTML += `
-      <div id="dessert${id}" class="product">
+      <div id="dessert${id}" class="product cartItem">
         <p>
           <span class="product-count" id="product-count-for-id${id}"></span>${name}
         </p>
-        <p>${price}</p>
+        <p class="price">QR${price}</p>
       </div>
+      
       `;
   }
 
@@ -166,9 +168,9 @@ class ShoppingCart {
     const subTotal = this.items.reduce((total, item) => total + item.price, 0);
     const tax = this.calculateTaxes(subTotal);
     this.total = subTotal + tax;
-    cartSubTotal.textContent = `$${subTotal.toFixed(2)}`;
-    cartTaxes.textContent = `$${tax.toFixed(2)}`;
-    cartTotal.textContent = `$${this.total.toFixed(2)}`;
+    cartSubTotal.textContent = `QR ${subTotal.toFixed(2)}`;
+    cartTaxes.textContent = `QR ${tax.toFixed(2)}`;
+    cartTotal.textContent = `QR ${this.total.toFixed(2)}`;
     return this.total;
   }
 };
@@ -186,10 +188,14 @@ const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
   }
 );
 
-cartBtn.addEventListener("click", () => {
+cartBtn.addEventListener('click', ()=>{
   isCartShowing = !isCartShowing;
-  showHideCartSpan.textContent = isCartShowing ? "Hide" : "Show";
-  cartContainer.style.display = isCartShowing ? "block" : "none";
-});
+  cartContainer.style.display = isCartShowing? "Block": "none"
+})
+
+hideCart.addEventListener("click", ()=>{
+  isCartShowing = !isCartShowing;
+  cartContainer.style.display = isCartShowing ? "Block": "none"
+})
 
 clearCartBtn.addEventListener("click", cart.clearCart.bind(cart))
